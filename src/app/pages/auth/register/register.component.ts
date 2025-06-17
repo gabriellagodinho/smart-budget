@@ -50,13 +50,13 @@ export class RegisterComponent {
 
     // Basic validation
     if (!this.registerData.name || !this.registerData.email || !this.registerData.password) {
-      this.errorMessage = 'Please fill in all required fields.';
+      this.errorMessage = 'Por favor, preencha todos os campos obrigatórios.';
       this.isLoading = false;
       return;
     }
 
     if (this.registerData.password !== this.registerData.confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
+      this.errorMessage = 'As senhas não coincidem.';
       this.isLoading = false;
       return;
     }

@@ -1,8 +1,8 @@
 <div class="register-container">
   <div class="register-form-container">
     <div class="register-form">
-      <h1 class="form-title">Create Account</h1>
-      <p class="form-subtitle">Join SmartBudget to start managing your finances smarter</p>
+      <h1 class="form-title">Criar Conta</h1>
+      <p class="form-subtitle">Junte-se ao SmartBudget para começar a gerenciar suas finanças de forma mais inteligente</p>
 
       <!-- Error message -->
       <div class="error-message" *ngIf="errorMessage">
@@ -13,7 +13,7 @@
       <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
         <!-- Name field -->
         <div class="form-group">
-          <label for="name">Full Name</label>
+          <label for="name">Nome Completo</label>
           <input
             type="text"
             id="name"
@@ -21,13 +21,13 @@
             class="form-control"
             [(ngModel)]="registerData.name"
             required
-            placeholder="Enter your full name"
+            placeholder="Digite seu nome completo"
             autocomplete="name">
         </div>
 
         <!-- Email field -->
         <div class="form-group">
-          <label for="email">Email Address</label>
+          <label for="email">Endereço de Email</label>
           <input
             type="email"
             id="email"
@@ -35,13 +35,13 @@
             class="form-control"
             [(ngModel)]="registerData.email"
             required
-            placeholder="Enter your email address"
+            placeholder="Digite seu endereço de email"
             autocomplete="email">
         </div>
 
         <!-- Password field -->
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">Senha</label>
           <div class="password-input-container">
             <input
               [type]="showPassword ? 'text' : 'password'"
@@ -50,20 +50,20 @@
               class="form-control"
               [(ngModel)]="registerData.password"
               required
-              placeholder="Create a password"
+              placeholder="Crie uma senha"
               autocomplete="new-password">
             <button
               type="button"
               class="password-toggle"
               (click)="togglePasswordVisibility()">
-              {{ showPassword ? 'Hide' : 'Show' }}
+              {{ showPassword ? 'Ocultar' : 'Mostrar' }}
             </button>
           </div>
         </div>
 
         <!-- Confirm Password field -->
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
+          <label for="confirmPassword">Confirmar Senha</label>
           <div class="password-input-container">
             <input
               [type]="showConfirmPassword ? 'text' : 'password'"
@@ -72,13 +72,13 @@
               class="form-control"
               [(ngModel)]="registerData.confirmPassword"
               required
-              placeholder="Confirm your password"
+              placeholder="Confirme sua senha"
               autocomplete="new-password">
             <button
               type="button"
               class="password-toggle"
               (click)="toggleConfirmPasswordVisibility()">
-              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+              {{ showConfirmPassword ? 'Ocultar' : 'Mostrar' }}
             </button>
           </div>
         </div>
@@ -88,14 +88,14 @@
           type="submit"
           class="btn btn-primary btn-block"
           [disabled]="isLoading">
-          <span *ngIf="isLoading">Creating account...</span>
-          <span *ngIf="!isLoading">Create Account</span>
+          <span *ngIf="isLoading">Criando conta...</span>
+          <span *ngIf="!isLoading">Criar Conta</span>
         </button>
       </form>
 
       <!-- Login link -->
       <div class="form-footer">
-        Already have an account? <a routerLink="/login">Log in</a>
+        Já tem uma conta? <a routerLink="/login">Entrar</a>
       </div>
     </div>
   </div>
@@ -103,39 +103,39 @@
   <!-- Features showcase -->
   <div class="features-container">
     <div class="features-content">
-      <h2>Smart Financial Management</h2>
-      <p>Join thousands of users who are taking control of their finances with SmartBudget.</p>
+      <h2>Gerenciamento Financeiro Inteligente</h2>
+      <p>Junte-se a milhares de usuários que estão assumindo o controle de suas finanças com o SmartBudget.</p>
 
       <div class="features-list">
         <div class="feature-item">
           <span class="feature-icon">📊</span>
           <div class="feature-text">
-            <h3>Visual Analytics</h3>
-            <p>See where your money goes with intuitive charts and graphs</p>
+            <h3>Análises Visuais</h3>
+            <p>Veja para onde vai seu dinheiro com gráficos e tabelas intuitivos</p>
           </div>
         </div>
 
         <div class="feature-item">
           <span class="feature-icon">🔔</span>
           <div class="feature-text">
-            <h3>Smart Alerts</h3>
-            <p>Get notified when you're approaching budget limits</p>
+            <h3>Alertas Inteligentes</h3>
+            <p>Receba notificações quando estiver se aproximando dos limites do orçamento</p>
           </div>
         </div>
 
         <div class="feature-item">
           <span class="feature-icon">🎯</span>
           <div class="feature-text">
-            <h3>Financial Goals</h3>
-            <p>Set and track progress towards your savings goals</p>
+            <h3>Metas Financeiras</h3>
+            <p>Defina e acompanhe o progresso em direção às suas metas de economia</p>
           </div>
         </div>
 
         <div class="feature-item">
           <span class="feature-icon">🔄</span>
           <div class="feature-text">
-            <h3>Sync Across Devices</h3>
-            <p>Access your budget from anywhere, anytime</p>
+            <h3>Sincronização entre Dispositivos</h3>
+            <p>Acesse seu orçamento de qualquer lugar, a qualquer momento</p>
           </div>
         </div>
       </div>
