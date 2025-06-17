@@ -1,7 +1,7 @@
 <div class="settings-container">
   <div class="settings-header">
-    <h1>Settings</h1>
-    <p>Customize your SmartBudget experience</p>
+    <h1>Configurações</h1>
+    <p>Personalize sua experiência no SmartBudget</p>
   </div>
 
   <!-- Success message -->
@@ -19,15 +19,15 @@
   <div class="settings-content">
     <!-- App Settings Section -->
     <div class="settings-section">
-      <h2>App Settings</h2>
+      <h2>Configurações do Aplicativo</h2>
 
       <form (ngSubmit)="saveSettings()" #settingsForm="ngForm">
         <!-- Appearance -->
         <div class="settings-group">
-          <h3>Appearance</h3>
+          <h3>Aparência</h3>
 
           <div class="form-group toggle-group">
-            <label for="darkMode">Dark Mode</label>
+            <label for="darkMode">Modo Escuro</label>
             <div class="toggle-switch">
               <input type="checkbox" id="darkMode" name="darkMode" [(ngModel)]="settings.darkMode">
               <label for="darkMode" class="toggle-label"></label>
@@ -37,10 +37,10 @@
 
         <!-- Notifications -->
         <div class="settings-group">
-          <h3>Notifications</h3>
+          <h3>Notificações</h3>
 
           <div class="form-group toggle-group">
-            <label for="notifications">Enable Notifications</label>
+            <label for="notifications">Ativar Notificações</label>
             <div class="toggle-switch">
               <input type="checkbox" id="notifications" name="notifications" [(ngModel)]="settings.notifications">
               <label for="notifications" class="toggle-label"></label>
@@ -50,10 +50,10 @@
 
         <!-- Localization -->
         <div class="settings-group">
-          <h3>Localization</h3>
+          <h3>Localização</h3>
 
           <div class="form-group">
-            <label for="currency">Currency</label>
+            <label for="currency">Moeda</label>
             <select id="currency" name="currency" class="form-control" [(ngModel)]="settings.currency">
               <option *ngFor="let currency of currencies" [value]="currency.code">
                 {{ currency.symbol }} - {{ currency.name }}
@@ -62,7 +62,7 @@
           </div>
 
           <div class="form-group">
-            <label for="language">Language</label>
+            <label for="language">Idioma</label>
             <select id="language" name="language" class="form-control" [(ngModel)]="settings.language">
               <option *ngFor="let language of languages" [value]="language.code">
                 {{ language.name }}
@@ -73,10 +73,10 @@
 
         <!-- Backup & Sync -->
         <div class="settings-group">
-          <h3>Backup & Sync</h3>
+          <h3>Backup e Sincronização</h3>
 
           <div class="form-group">
-            <label for="backupFrequency">Automatic Backup Frequency</label>
+            <label for="backupFrequency">Frequência de Backup Automático</label>
             <select id="backupFrequency" name="backupFrequency" class="form-control" [(ngModel)]="settings.backupFrequency">
               <option *ngFor="let option of backupOptions" [value]="option.value">
                 {{ option.label }}
@@ -88,8 +88,8 @@
         <!-- Save Button -->
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" [disabled]="isLoading">
-            <span *ngIf="isLoading">Saving...</span>
-            <span *ngIf="!isLoading">Save Settings</span>
+            <span *ngIf="isLoading">Salvando...</span>
+            <span *ngIf="!isLoading">Salvar Configurações</span>
           </button>
         </div>
       </form>
@@ -97,47 +97,47 @@
 
     <!-- Data Management Section -->
     <div class="settings-section">
-      <h2>Data Management</h2>
+      <h2>Gerenciamento de Dados</h2>
 
       <!-- Backup & Restore -->
       <div class="settings-group">
-        <h3>Backup & Restore</h3>
+        <h3>Backup e Restauração</h3>
 
         <div class="data-actions">
           <button class="btn btn-secondary" (click)="exportData()">
-            <span class="icon">📤</span> Export Data
+            <span class="icon">📤</span> Exportar Dados
           </button>
 
           <div class="import-container">
             <label for="importFile" class="btn btn-secondary">
-              <span class="icon">📥</span> Import Data
+              <span class="icon">📥</span> Importar Dados
             </label>
             <input type="file" id="importFile" accept=".json" (change)="importData($event)" style="display: none;">
           </div>
         </div>
 
         <p class="help-text">
-          Export creates a backup file of all your data. Import restores data from a previous backup.
+          Exportar cria um arquivo de backup de todos os seus dados. Importar restaura dados de um backup anterior.
         </p>
       </div>
 
       <!-- Reset Options -->
       <div class="settings-group danger-zone">
-        <h3>Danger Zone</h3>
+        <h3>Zona de Perigo</h3>
 
         <div class="data-actions">
           <button class="btn btn-warning" (click)="resetCategories()">
-            <span class="icon">🔄</span> Reset Categories
+            <span class="icon">🔄</span> Redefinir Categorias
           </button>
 
           <button class="btn btn-danger" (click)="clearAllData()">
-            <span class="icon">🗑️</span> Factory Reset
+            <span class="icon">🗑️</span> Redefinir para Padrão de Fábrica
           </button>
         </div>
 
         <p class="help-text warning-text">
-          Warning: These actions cannot be undone. Reset Categories will restore default categories.
-          Factory Reset will delete ALL your data.
+          Aviso: Essas ações não podem ser desfeitas. Redefinir Categorias restaurará as categorias padrão.
+          Redefinir para Padrão de Fábrica excluirá TODOS os seus dados.
         </p>
       </div>
     </div>
@@ -145,10 +145,10 @@
 
   <!-- About Section -->
   <div class="settings-section about-section">
-    <h2>About SmartBudget</h2>
-    <p>Version 1.0.0</p>
-    <p>SmartBudget is a personal finance management application designed to help you track expenses,
-      set budgets, and achieve your financial goals.</p>
-    <p>© 2023 SmartBudget. All rights reserved.</p>
+    <h2>Sobre o SmartBudget</h2>
+    <p>Versão 1.0.0</p>
+    <p>SmartBudget é um aplicativo de gerenciamento financeiro pessoal projetado para ajudar você a rastrear despesas,
+      definir orçamentos e alcançar seus objetivos financeiros.</p>
+    <p>© 2023 SmartBudget. Todos os direitos reservados.</p>
   </div>
 </div>

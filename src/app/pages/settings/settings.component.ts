@@ -16,8 +16,8 @@ export class SettingsComponent implements OnInit {
   settings = {
     darkMode: true,
     notifications: true,
-    currency: 'USD',
-    language: 'en',
+    currency: 'BRL',
+    language: 'pt',
     backupFrequency: 'weekly'
   };
 
@@ -48,10 +48,10 @@ export class SettingsComponent implements OnInit {
   ];
 
   backupOptions = [
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'manual', label: 'Manual only' }
+    { value: 'daily', label: 'Diário' },
+    { value: 'weekly', label: 'Semanal' },
+    { value: 'monthly', label: 'Mensal' },
+    { value: 'manual', label: 'Apenas manual' }
   ];
 
   constructor(
@@ -80,17 +80,17 @@ export class SettingsComponent implements OnInit {
       this.applySettings();
 
       // Show success message
-      this.successMessage = 'Settings saved successfully';
+      this.successMessage = 'Configurações salvas com sucesso';
 
       // Create notification
       this.notificationService.addNotification({
         type: 'success',
-        title: 'Settings Updated',
-        message: 'Your settings have been updated successfully.'
+        title: 'Configurações Atualizadas',
+        message: 'Suas configurações foram atualizadas com sucesso.'
       });
     } catch (error) {
-      this.errorMessage = 'Failed to save settings';
-      console.error('Error saving settings:', error);
+      this.errorMessage = 'Falha ao salvar configurações';
+      console.error('Erro ao salvar configurações:', error);
     } finally {
       this.isLoading = false;
 
@@ -107,13 +107,13 @@ export class SettingsComponent implements OnInit {
    * Reset categories to default
    */
   resetCategories(): void {
-    if (confirm('Are you sure you want to reset all categories to default? This cannot be undone.')) {
+    if (confirm('Tem certeza que deseja redefinir todas as categorias para o padrão? Isso não pode ser desfeito.')) {
       this.categoryService.resetToDefault();
 
       this.notificationService.addNotification({
         type: 'info',
-        title: 'Categories Reset',
-        message: 'All categories have been reset to default values.'
+        title: 'Categorias Redefinidas',
+        message: 'Todas as categorias foram redefinidas para os valores padrão.'
       });
     }
   }
@@ -122,8 +122,8 @@ export class SettingsComponent implements OnInit {
    * Clear all data (factory reset)
    */
   clearAllData(): void {
-    if (confirm('WARNING: This will delete ALL your data including transactions, budgets, and goals. This action cannot be undone. Are you sure?')) {
-      if (confirm('Are you ABSOLUTELY sure? All your financial data will be permanently deleted.')) {
+    if (confirm('AVISO: Isso excluirá TODOS os seus dados, incluindo transações, orçamentos e metas. Esta ação não pode ser desfeita. Tem certeza?')) {
+      if (confirm('Tem ABSOLUTA certeza? Todos os seus dados financeiros serão excluídos permanentemente.')) {
         // Clear all localStorage data except user authentication
         const userAuth = localStorage.getItem('user');
         localStorage.clear();
@@ -137,8 +137,8 @@ export class SettingsComponent implements OnInit {
         // Show notification
         this.notificationService.addNotification({
           type: 'warning',
-          title: 'Data Cleared',
-          message: 'All your data has been deleted. App has been reset to factory settings.'
+          title: 'Dados Apagados',
+          message: 'Todos os seus dados foram excluídos. O aplicativo foi redefinido para as configurações de fábrica.'
         });
 
         // Reload the page to reset all services
@@ -179,12 +179,12 @@ export class SettingsComponent implements OnInit {
       // Show notification
       this.notificationService.addNotification({
         type: 'success',
-        title: 'Data Exported',
-        message: 'Your data has been exported successfully.'
+        title: 'Dados Exportados',
+        message: 'Seus dados foram exportados com sucesso.'
       });
     } catch (error) {
-      this.errorMessage = 'Failed to export data';
-      console.error('Error exporting data:', error);
+      this.errorMessage = 'Falha ao exportar dados';
+      console.error('Erro ao exportar dados:', error);
     }
   }
 
@@ -206,7 +206,7 @@ export class SettingsComponent implements OnInit {
 
         // Validate data structure
         if (!data.transactions || !data.categories || !data.budgets || !data.goals) {
-          throw new Error('Invalid backup file format');
+          throw new Error('Formato de arquivo de backup inválido');
         }
 
         // Store data in localStorage
@@ -224,8 +224,8 @@ export class SettingsComponent implements OnInit {
         // Show notification
         this.notificationService.addNotification({
           type: 'success',
-          title: 'Data Imported',
-          message: 'Your data has been imported successfully. The app will now reload.'
+          title: 'Dados Importados',
+          message: 'Seus dados foram importados com sucesso. O aplicativo será recarregado.'
         });
 
         // Reload the page to refresh all services
@@ -233,8 +233,8 @@ export class SettingsComponent implements OnInit {
           window.location.reload();
         }, 1500);
       } catch (error) {
-        this.errorMessage = 'Failed to import data: Invalid file format';
-        console.error('Error importing data:', error);
+        this.errorMessage = 'Falha ao importar dados: Formato de arquivo inválido';
+        console.error('Erro ao importar dados:', error);
       }
     };
 

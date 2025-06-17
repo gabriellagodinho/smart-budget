@@ -115,7 +115,7 @@ export class BudgetsComponent implements OnInit {
    * Delete a budget
    */
   deleteBudget(id: string): void {
-    if (confirm('Are you sure you want to delete this budget?')) {
+    if (confirm('Tem certeza que deseja excluir este orçamento?')) {
       this.budgetService.deleteBudget(id);
     }
   }
@@ -140,10 +140,10 @@ export class BudgetsComponent implements OnInit {
    */
   formatPeriod(period: string): string {
     switch (period) {
-      case 'daily': return 'Daily';
-      case 'weekly': return 'Weekly';
-      case 'monthly': return 'Monthly';
-      case 'yearly': return 'Yearly';
+      case 'daily': return 'Diário';
+      case 'weekly': return 'Semanal';
+      case 'monthly': return 'Mensal';
+      case 'yearly': return 'Anual';
       default: return period;
     }
   }

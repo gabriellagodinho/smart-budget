@@ -55,7 +55,7 @@ export class LoginComponent {
         // Navigate to dashboard
         this.router.navigate(['/dashboard']);
       } else {
-        this.errorMessage = 'Please enter both email and password.';
+        this.errorMessage = 'Por favor, digite o email e a senha.';
       }
 
       this.isLoading = false;

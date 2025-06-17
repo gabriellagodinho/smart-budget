@@ -92,6 +92,10 @@
 
           <!-- Dropdown menu -->
           <div class="dropdown-menu" [class.show]="isSettingsOpen">
+            <a routerLink="/settings" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+              <i class="material-icons">settings</i>
+              <span>Configurações</span>
+            </a>
             <a routerLink="/login" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
               <i class="material-icons">login</i>
               <span>Entrar</span>
