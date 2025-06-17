@@ -200,7 +200,7 @@
   color: white;
 
   &:hover {
-    background-color: lighten(#FF9800, 10%);
+    background-color: rgba(207, 102, 121, 0.8); // #cf6679 com 80% de opacidade
   }
 }
 
@@ -209,8 +209,9 @@
   color: white;
 
   &:hover {
-    background-color: lighten(#cf6679, 10%);
+    background-color: rgba(255, 152, 0, 0.8); // #FF9800 com 80% de opacidade
   }
+
 }
 
 // About section

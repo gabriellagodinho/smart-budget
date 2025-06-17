@@ -112,7 +112,7 @@
 html, body {
   height: 100%;
   margin: 0;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), serif;
   background-color: var(--background-color);
   background-image: var(--gradient-background);
   background-attachment: fixed;
@@ -313,7 +313,7 @@ a {
   border-radius: var(--border-radius-full);
   border: none;
   cursor: pointer;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), serif;
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
   text-transform: uppercase;
@@ -544,7 +544,7 @@ a {
   color: var(--text-primary-color);
   transition: all var(--transition-speed) var(--transition-function);
   box-sizing: border-box;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), serif;
   font-size: var(--font-size-md);
 
   &::placeholder {
