@@ -1,0 +1,108 @@
+<nav class="navbar glass" [class.mobile-open]="isMenuOpen">
+  <div class="navbar-container container">
+    <!-- Logo e marca -->
+    <div class="navbar-brand">
+      <a routerLink="/" class="logo" (click)="closeMenu()">
+        <span class="logo-icon">
+          <i class="material-icons">account_balance_wallet</i>
+        </span>
+        <span class="logo-text gradient-text">SmartBudget</span>
+      </a>
+
+      <!-- Botão de menu para dispositivos móveis -->
+      <button class="menu-toggle" *ngIf="isMobile" (click)="toggleMenu()" aria-label="Menu">
+        <span class="menu-icon" [class.open]="isMenuOpen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Links de navegação -->
+    <div class="navbar-menu" [class.open]="isMenuOpen">
+      <ul class="navbar-links">
+        <li class="slide-up delay-100">
+          <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
+            <span class="icon">
+              <i class="material-icons">dashboard</i>
+            </span>
+            <span class="text">Painel</span>
+          </a>
+        </li>
+        <li class="slide-up delay-200">
+          <a routerLink="/expenses" routerLinkActive="active" (click)="closeMenu()">
+            <span class="icon">
+              <i class="material-icons">trending_down</i>
+            </span>
+            <span class="text">Despesas</span>
+          </a>
+        </li>
+        <li class="slide-up delay-300">
+          <a routerLink="/income" routerLinkActive="active" (click)="closeMenu()">
+            <span class="icon">
+              <i class="material-icons">trending_up</i>
+            </span>
+            <span class="text">Receitas</span>
+          </a>
+        </li>
+        <li class="slide-up delay-400">
+          <a routerLink="/budgets" routerLinkActive="active" (click)="closeMenu()">
+            <span class="icon">
+              <i class="material-icons">pie_chart</i>
+            </span>
+            <span class="text">Orçamentos</span>
+          </a>
+        </li>
+        <li class="slide-up delay-500">
+          <a routerLink="/goals" routerLinkActive="active" (click)="closeMenu()">
+            <span class="icon">
+              <i class="material-icons">flag</i>
+            </span>
+            <span class="text">Metas</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Ações do usuário -->
+      <div class="navbar-actions">
+        <!-- Notificações -->
+        <div class="notification-icon">
+          <a href="#" class="icon-button" aria-label="Notificações">
+            <span class="icon">
+              <i class="material-icons">notifications</i>
+            </span>
+            <span class="badge pulse" *ngIf="(notificationService.unreadCount$ | async) as count">
+              {{ count > 9 ? '9+' : count }}
+            </span>
+          </a>
+        </div>
+
+        <!-- Menu do usuário com dropdown -->
+        <div class="user-menu" [class.open]="isSettingsOpen">
+          <a href="#" (click)="toggleSettings($event)" [class.active]="isSettingsOpen">
+            <span class="icon">
+              <i class="material-icons">settings</i>
+            </span>
+            <span class="text">Configurações</span>
+            <span class="dropdown-icon">
+              <i class="material-icons">{{ isSettingsOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</i>
+            </span>
+          </a>
+
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu" [class.show]="isSettingsOpen">
+            <a routerLink="/login" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+              <i class="material-icons">login</i>
+              <span>Entrar</span>
+            </a>
+            <a routerLink="/register" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+              <i class="material-icons">person_add</i>
+              <span>Cadastrar</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

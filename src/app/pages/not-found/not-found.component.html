@@ -1,0 +1,42 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <div class="error-code">404</div>
+
+    <div class="error-details">
+      <h1>Page Not Found</h1>
+      <p>Oops! The page you're looking for doesn't exist or has been moved.</p>
+    </div>
+
+    <div class="illustration">
+      <div class="planet"></div>
+      <div class="astronaut">
+        <div class="astronaut-body"></div>
+        <div class="astronaut-head"></div>
+        <div class="astronaut-arm left"></div>
+        <div class="astronaut-arm right"></div>
+        <div class="astronaut-leg left"></div>
+        <div class="astronaut-leg right"></div>
+      </div>
+      <div class="stars"></div>
+    </div>
+
+    <div class="navigation-help">
+      <h2>Where would you like to go?</h2>
+
+      <div class="suggested-pages">
+        <a *ngFor="let page of suggestedPages"
+           [routerLink]="page.path"
+           class="suggested-page">
+          <span class="page-icon">{{ page.icon }}</span>
+          <span class="page-name">{{ page.name }}</span>
+        </a>
+      </div>
+
+      <div class="home-link">
+        <a routerLink="/dashboard" class="btn btn-primary">
+          Go to Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

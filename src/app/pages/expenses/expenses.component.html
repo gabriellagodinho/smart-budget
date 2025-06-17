@@ -1,0 +1,149 @@
+<div class="expenses-container">
+  <!-- Indicador de carregamento -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Carregando despesas...</p>
+  </div>
+
+  <!-- Conteúdo de despesas -->
+  <div class="expenses-content" [class.loading]="isLoading">
+    <div class="page-header flex justify-between align-center mb-lg">
+      <h1 class="page-title">Despesas</h1>
+      <button class="btn btn-primary add-expense-btn" (click)="openAddExpenseModal()">
+        <span class="btn-icon">+</span>
+        <span class="btn-text">Adicionar Despesa</span>
+      </button>
+    </div>
+
+    <!-- Cartão de resumo -->
+    <div class="card summary-card">
+      <div class="card-content">
+        <h2 class="card-title">Despesas Totais</h2>
+        <p class="total-amount">{{ totalExpenses$ | async | currency }}</p>
+        <p class="period-label">{{ selectedPeriod === 'all' ? 'Todo o período' :
+          selectedPeriod === 'today' ? 'Hoje' :
+          selectedPeriod === 'week' ? 'Esta semana' :
+          selectedPeriod === 'month' ? 'Este mês' :
+          'Este ano' }}</p>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-section mt-lg">
+      <div class="card">
+        <div class="card-content">
+          <h2 class="card-title">Filtros</h2>
+
+          <div class="filter-options flex gap-lg">
+            <!-- Filtro de período -->
+            <div class="filter-group">
+              <label>Período</label>
+              <div class="period-buttons flex gap-sm">
+                <button
+                  *ngFor="let period of ['today', 'week', 'month', 'year', 'all']"
+                  [class.active]="selectedPeriod === period"
+                  (click)="filterByPeriod(period)">
+                  {{ period === 'today' ? 'Hoje' :
+                     period === 'week' ? 'Semana' :
+                     period === 'month' ? 'Mês' :
+                     period === 'year' ? 'Ano' :
+                     'Todos' }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Filtro de categoria -->
+            <div class="filter-group">
+              <label>Categoria</label>
+              <select class="form-control">
+                <option value="">Todas as Categorias</option>
+                <!-- Será preenchido com categorias reais -->
+                <option value="food">Alimentação</option>
+                <option value="transportation">Transporte</option>
+                <option value="utilities">Serviços Públicos</option>
+                <!-- Mais categorias -->
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de despesas -->
+    <div class="card expenses-list-card mt-lg">
+      <div class="card-content">
+        <div class="list-header flex justify-between align-center mb-md">
+          <h2 class="card-title">Transações de Despesas</h2>
+
+          <!-- Opções de ordenação -->
+          <div class="sort-options flex align-center gap-sm">
+            <label>Ordenar por:</label>
+            <select class="form-control">
+              <option value="date">Data</option>
+              <option value="amount">Valor</option>
+              <option value="category">Categoria</option>
+            </select>
+
+            <button class="sort-direction-btn" (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'" aria-label="Direção de ordenação">
+              <span *ngIf="sortDirection === 'asc'">↑</span>
+              <span *ngIf="sortDirection === 'desc'">↓</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabela de despesas -->
+        <div class="expenses-table">
+          <div class="table-header">
+            <div class="header-cell date-cell">Data</div>
+            <div class="header-cell description-cell">Descrição</div>
+            <div class="header-cell category-cell">Categoria</div>
+            <div class="header-cell amount-cell">Valor</div>
+            <div class="header-cell actions-cell">Ações</div>
+          </div>
+
+          <ng-container *ngIf="(expenses$ | async) as expenses">
+            <div class="empty-state text-center mt-lg" *ngIf="expenses.length === 0">
+              <p>Nenhuma despesa encontrada para os filtros selecionados.</p>
+              <button class="btn btn-primary mt-md" (click)="openAddExpenseModal()">Adicionar Sua Primeira Despesa</button>
+            </div>
+
+            <div class="table-row" *ngFor="let expense of expenses">
+              <div class="cell date-cell">{{ expense.date | date:'dd/MM/yyyy' }}</div>
+              <div class="cell description-cell">{{ expense.description }}</div>
+              <div class="cell category-cell">
+                <span class="category-badge" [style.backgroundColor]="expense.category.color + '33'">
+                  {{ expense.category.name }}
+                </span>
+              </div>
+              <div class="cell amount-cell">{{ expense.amount | currency }}</div>
+              <div class="cell actions-cell">
+                <button class="action-btn edit-btn" title="Editar">✏️</button>
+                <button class="action-btn delete-btn" title="Excluir" (click)="deleteExpense(expense.id)">🗑️</button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Adicionar Despesa (placeholder) -->
+  <div class="modal-overlay" *ngIf="showAddExpenseModal" (click)="closeAddExpenseModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Adicionar Nova Despesa</h2>
+        <button class="close-btn" (click)="closeAddExpenseModal()" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Formulário de transação será colocado aqui -->
+        <p>Placeholder do formulário de despesa</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeAddExpenseModal()">Cancelar</button>
+        <button class="btn btn-primary">Salvar Despesa</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,254 @@
+// Settings component styles
+
+// Container
+.settings-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+// Header
+.settings-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  p {
+    color: var(--text-secondary-color);
+    font-size: 1.1rem;
+  }
+}
+
+// Success and error messages
+.success-message, .error-message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    font-size: 1.5rem;
+    margin-right: 0.75rem;
+  }
+}
+
+.success-message {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  border-left: 4px solid #4CAF50;
+}
+
+.error-message {
+  background-color: rgba(207, 102, 121, 0.1);
+  color: var(--error-color);
+  border-left: 4px solid var(--error-color);
+}
+
+// Content layout
+.settings-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Settings sections
+.settings-section {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+  }
+}
+
+.settings-group {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Toggle switch
+.toggle-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-switch {
+  position: relative;
+
+  input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .toggle-label {
+    cursor: pointer;
+    width: 50px;
+    height: 24px;
+    background: var(--border-color);
+    display: block;
+    border-radius: 100px;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: var(--text-primary-color);
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+  }
+
+  input:checked + .toggle-label {
+    background: var(--primary-color);
+  }
+
+  input:checked + .toggle-label:after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+  }
+}
+
+// Form actions
+.form-actions {
+  margin-top: 2rem;
+
+  button {
+    min-width: 150px;
+  }
+}
+
+// Data management
+.data-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+
+  button, label {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.help-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary-color);
+  margin-top: 0.5rem;
+}
+
+// Danger zone
+.danger-zone {
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+
+  h3 {
+    color: var(--error-color);
+  }
+}
+
+.warning-text {
+  color: var(--error-color);
+}
+
+// Button variants
+.btn-warning {
+  background-color: #FF9800;
+  color: white;
+
+  &:hover {
+    background-color: lighten(#FF9800, 10%);
+  }
+}
+
+.btn-danger {
+  background-color: var(--error-color);
+  color: white;
+
+  &:hover {
+    background-color: lighten(#cf6679, 10%);
+  }
+}
+
+// About section
+.about-section {
+  text-align: center;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary-color);
+
+    &:last-child {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Animation
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.settings-section {
+  animation: fadeIn 0.4s ease-out;
+  animation-fill-mode: both;
+
+  &:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+}
+
+.about-section {
+  animation: fadeIn 0.4s ease-out;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}

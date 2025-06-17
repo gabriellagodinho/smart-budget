@@ -1,0 +1,84 @@
+/* Estilos específicos do aplicativo - Design Futurista */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Estilos adicionais para elementos dentro do app-container */
+.route-animations-container {
+  z-index: 1; /* Garante que o conteúdo fique acima dos elementos decorativos */
+}
+
+/* Estilos para elementos específicos que não estão no template */
+.page-section {
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary-color);
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-full);
+  }
+}
+
+/* Utilitários adicionais */
+.text-gradient-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-secondary {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ajustes responsivos adicionais */
+@media (max-width: 992px) {
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-section {
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 576px) {
+  .section-title {
+    font-size: var(--font-size-lg);
+
+    &::after {
+      width: 30px;
+      height: 2px;
+    }
+  }
+}

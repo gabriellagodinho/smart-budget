@@ -1,0 +1,200 @@
+// Register component styles
+@import '../../../../../src/styles.scss';
+
+// Variables
+$form-max-width: 450px;
+$features-bg: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+
+// Container layout
+.register-container {
+  display: flex;
+  min-height: calc(100vh - 64px);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    min-height: calc(100vh - 56px);
+  }
+}
+
+// Form container
+.register-form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    order: 2;
+  }
+}
+
+.register-form {
+  width: 100%;
+  max-width: $form-max-width;
+
+  .form-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: $features-bg;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .form-subtitle {
+    margin-bottom: 2rem;
+    color: var(--text-secondary-color);
+  }
+}
+
+// Error message
+.error-message {
+  background-color: rgba(207, 102, 121, 0.1);
+  color: var(--error-color);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--error-color);
+}
+
+// Form styles
+form {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+// Password input container
+.password-input-container {
+  position: relative;
+
+  .form-control {
+    padding-right: 4.5rem;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 1rem;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-weight: 500;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+// Submit button
+.btn-block {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Form footer
+.form-footer {
+  text-align: center;
+  color: var(--text-secondary-color);
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Features container
+.features-container {
+  flex: 1;
+  background: $features-bg;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    order: 1;
+    min-height: 300px;
+  }
+}
+
+.features-content {
+  max-width: 500px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  > p {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+}
+
+// Features list
+.features-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+
+  .feature-icon {
+    font-size: 1.75rem;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin: 0;
+    }
+  }
+}
+
+// Animation
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.register-form, .features-content {
+  animation: fadeIn 0.5s ease-out;
+}

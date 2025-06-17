@@ -1,0 +1,95 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="app-title">SmartBudget</h1>
+      <p class="app-subtitle">Intelligent Financial Management</p>
+    </div>
+
+    <div class="login-form-container">
+      <h2 class="form-title">Login</h2>
+
+      <!-- Error message -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Login form -->
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="loginData.email"
+            required
+            email
+            placeholder="Enter your email"
+            [disabled]="isLoading"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-input-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              class="form-control"
+              [(ngModel)]="loginData.password"
+              required
+              placeholder="Enter your password"
+              [disabled]="isLoading"
+            >
+            <button
+              type="button"
+              class="password-toggle-btn"
+              (click)="togglePasswordVisibility()"
+              [disabled]="isLoading"
+            >
+              {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn btn-primary login-btn"
+            [disabled]="loginForm.invalid || isLoading"
+          >
+            <span class="spinner" *ngIf="isLoading"></span>
+            <span>{{ isLoading ? 'Logging in...' : 'Login' }}</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="form-footer">
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- App features showcase -->
+  <div class="features-showcase">
+    <div class="feature-item">
+      <div class="feature-icon">📊</div>
+      <h3>Smart Dashboard</h3>
+      <p>Get a clear overview of your finances with interactive charts and insights.</p>
+    </div>
+
+    <div class="feature-item">
+      <div class="feature-icon">🎯</div>
+      <h3>Financial Goals</h3>
+      <p>Set and track your savings goals with visual progress indicators.</p>
+    </div>
+
+    <div class="feature-item">
+      <div class="feature-icon">📱</div>
+      <h3>Responsive Design</h3>
+      <p>Access your financial data from any device with our mobile-friendly interface.</p>
+    </div>
+  </div>
+</div>

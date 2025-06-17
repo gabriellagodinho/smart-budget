@@ -1,0 +1,250 @@
+<div class="goals-container">
+  <!-- Loading spinner -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading goals...</p>
+  </div>
+
+  <!-- Goals content -->
+  <div class="goals-content" [class.loading]="isLoading">
+    <div class="page-header">
+      <h1 class="page-title">Financial Goals</h1>
+      <button class="btn btn-primary add-goal-btn" (click)="openAddGoalModal()">
+        <span class="btn-icon">+</span>
+        <span class="btn-text">Add Goal</span>
+      </button>
+    </div>
+
+    <!-- Goals overview -->
+    <div class="goals-overview">
+      <ng-container *ngIf="(goalsWithProgress$ | async) as goals">
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="goals.length === 0">
+          <div class="card">
+            <div class="card-content">
+              <h2>No Financial Goals Yet</h2>
+              <p>Start planning for your future by creating financial goals to save for.</p>
+              <button class="btn btn-primary" (click)="openAddGoalModal()">Create Your First Goal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Goals grid -->
+        <div class="goals-grid" *ngIf="goals.length > 0">
+          <!-- Completed goals section -->
+          <div class="completed-goals" *ngIf="(completedGoals$ | async)?.length">
+            <h2 class="section-title">Completed Goals</h2>
+            <div class="goals-row">
+              <div class="card goal-card completed" *ngFor="let goal of (completedGoals$ | async)">
+                <div class="card-content">
+                  <div class="goal-header">
+                    <h3 class="goal-name">{{ goal.name }}</h3>
+                    <div class="goal-actions">
+                      <button class="action-btn delete-btn" title="Delete Goal" (click)="deleteGoal(goal.id)">🗑️</button>
+                    </div>
+                  </div>
+
+                  <div class="goal-amount">
+                    <span class="amount-value">{{ goal.targetAmount | currency }}</span>
+                    <span class="amount-label">Saved</span>
+                  </div>
+
+                  <div class="goal-progress">
+                    <div class="progress-bar-wrapper">
+                      <div class="progress-bar completed" style="width: 100%"></div>
+                    </div>
+                    <div class="progress-label completed">Goal Achieved! 🎉</div>
+                  </div>
+
+                  <div class="goal-footer">
+                    <button class="btn btn-secondary withdraw-btn" (click)="withdrawFundsFromGoal(goal.id, goal.currentAmount)">
+                      Withdraw Funds
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active goals section -->
+          <div class="active-goals" *ngIf="(activeGoals$ | async)?.length">
+            <h2 class="section-title">Active Goals</h2>
+            <div class="goals-row">
+              <div class="card goal-card" *ngFor="let goal of (activeGoals$ | async)">
+                <div class="card-content">
+                  <div class="goal-header">
+                    <h3 class="goal-name">{{ goal.name }}</h3>
+                    <div class="goal-actions">
+                      <button class="action-btn edit-btn" title="Edit Goal" (click)="openEditGoalModal(goal)">✏️</button>
+                      <button class="action-btn delete-btn" title="Delete Goal" (click)="deleteGoal(goal.id)">🗑️</button>
+                    </div>
+                  </div>
+
+                  <div class="goal-details">
+                    <div class="goal-description" *ngIf="goal.description">
+                      {{ goal.description }}
+                    </div>
+
+                    <div class="goal-deadline" *ngIf="goal.deadline">
+                      <span class="deadline-label">Deadline:</span>
+                      <span class="deadline-value">
+                        {{ goal.deadline | date:'MMM d, y' }}
+                        ({{ getTimeRemaining(goal.deadline) }})
+                      </span>
+                    </div>
+
+                    <div class="goal-priority" *ngIf="goal.priority">
+                      <span class="priority-badge" [ngClass]="goal.priority">
+                        {{ goal.priority | titlecase }} Priority
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="goal-amounts">
+                    <div class="amount-item">
+                      <span class="amount-label">Target</span>
+                      <span class="amount-value">{{ goal.targetAmount | currency }}</span>
+                    </div>
+
+                    <div class="amount-item">
+                      <span class="amount-label">Saved</span>
+                      <span class="amount-value">{{ goal.currentAmount | currency }}</span>
+                    </div>
+
+                    <div class="amount-item">
+                      <span class="amount-label">Remaining</span>
+                      <span class="amount-value">{{ goal.remaining | currency }}</span>
+                    </div>
+                  </div>
+
+                  <div class="goal-progress">
+                    <div class="progress-bar-wrapper">
+                      <div class="progress-bar"
+                           [style.width.%]="goal.progress"
+                           [ngClass]="getGoalStatusClass(goal.progress)">
+                      </div>
+                    </div>
+                    <div class="progress-label" [ngClass]="getGoalStatusClass(goal.progress)">
+                      {{ goal.progress }}% Complete
+                    </div>
+                  </div>
+
+                  <div class="goal-footer">
+                    <button class="btn btn-primary contribute-btn" (click)="openContributeModal(goal)">
+                      Add Funds
+                    </button>
+
+                    <button class="btn btn-secondary withdraw-btn" *ngIf="goal.currentAmount > 0" (click)="withdrawFundsFromGoal(goal.id, goal.currentAmount)">
+                      Withdraw
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Add/Edit Goal Modal (placeholder) -->
+  <div class="modal-overlay" *ngIf="showAddGoalModal" (click)="closeGoalModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ selectedGoalForEdit ? 'Edit Goal' : 'Add New Goal' }}</h2>
+        <button class="close-btn" (click)="closeGoalModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Goal form will go here -->
+        <p>Goal form placeholder</p>
+
+        <div class="form-group">
+          <label>Goal Name</label>
+          <input type="text" class="form-control" placeholder="e.g., New Car, Vacation, Emergency Fund">
+        </div>
+
+        <div class="form-group">
+          <label>Target Amount</label>
+          <input type="number" class="form-control" placeholder="0.00">
+        </div>
+
+        <div class="form-group">
+          <label>Current Amount (Optional)</label>
+          <input type="number" class="form-control" placeholder="0.00">
+        </div>
+
+        <div class="form-group">
+          <label>Description (Optional)</label>
+          <textarea class="form-control" rows="3" placeholder="Describe your goal..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Deadline (Optional)</label>
+          <input type="date" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Priority</label>
+          <select class="form-control">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Category (Optional)</label>
+          <input type="text" class="form-control" placeholder="e.g., Travel, Home, Education">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeGoalModal()">Cancel</button>
+        <button class="btn btn-primary">
+          {{ selectedGoalForEdit ? 'Update Goal' : 'Create Goal' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contribute Modal -->
+  <div class="modal-overlay" *ngIf="showContributeModal" (click)="closeContributeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Add Funds to Goal</h2>
+        <button class="close-btn" (click)="closeContributeModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="selectedGoalForContribution">
+          <div class="goal-summary">
+            <h3>{{ selectedGoalForContribution.name }}</h3>
+            <div class="goal-amounts">
+              <div class="amount-item">
+                <span class="amount-label">Current</span>
+                <span class="amount-value">{{ selectedGoalForContribution.currentAmount | currency }}</span>
+              </div>
+              <div class="amount-item">
+                <span class="amount-label">Target</span>
+                <span class="amount-value">{{ selectedGoalForContribution.targetAmount | currency }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Contribution Amount</label>
+            <input type="number" class="form-control" placeholder="0.00" [(ngModel)]="contributionAmount">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeContributeModal()">Cancel</button>
+        <button class="btn btn-primary" [disabled]="contributionAmount <= 0" (click)="addFundsToGoal()">
+          Add Funds
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

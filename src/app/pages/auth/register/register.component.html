@@ -1,0 +1,144 @@
+<div class="register-container">
+  <div class="register-form-container">
+    <div class="register-form">
+      <h1 class="form-title">Create Account</h1>
+      <p class="form-subtitle">Join SmartBudget to start managing your finances smarter</p>
+
+      <!-- Error message -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Registration form -->
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <!-- Name field -->
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            [(ngModel)]="registerData.name"
+            required
+            placeholder="Enter your full name"
+            autocomplete="name">
+        </div>
+
+        <!-- Email field -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="registerData.email"
+            required
+            placeholder="Enter your email address"
+            autocomplete="email">
+        </div>
+
+        <!-- Password field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-input-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              class="form-control"
+              [(ngModel)]="registerData.password"
+              required
+              placeholder="Create a password"
+              autocomplete="new-password">
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()">
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password field -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="password-input-container">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="form-control"
+              [(ngModel)]="registerData.confirmPassword"
+              required
+              placeholder="Confirm your password"
+              autocomplete="new-password">
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="toggleConfirmPasswordVisibility()">
+              {{ showConfirmPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="isLoading">
+          <span *ngIf="isLoading">Creating account...</span>
+          <span *ngIf="!isLoading">Create Account</span>
+        </button>
+      </form>
+
+      <!-- Login link -->
+      <div class="form-footer">
+        Already have an account? <a routerLink="/login">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features showcase -->
+  <div class="features-container">
+    <div class="features-content">
+      <h2>Smart Financial Management</h2>
+      <p>Join thousands of users who are taking control of their finances with SmartBudget.</p>
+
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="feature-icon">📊</span>
+          <div class="feature-text">
+            <h3>Visual Analytics</h3>
+            <p>See where your money goes with intuitive charts and graphs</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <span class="feature-icon">🔔</span>
+          <div class="feature-text">
+            <h3>Smart Alerts</h3>
+            <p>Get notified when you're approaching budget limits</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <span class="feature-icon">🎯</span>
+          <div class="feature-text">
+            <h3>Financial Goals</h3>
+            <p>Set and track progress towards your savings goals</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <span class="feature-icon">🔄</span>
+          <div class="feature-text">
+            <h3>Sync Across Devices</h3>
+            <p>Access your budget from anywhere, anytime</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

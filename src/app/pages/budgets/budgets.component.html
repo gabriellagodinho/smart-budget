@@ -1,0 +1,164 @@
+<div class="budgets-container">
+  <!-- Loading spinner -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading budgets...</p>
+  </div>
+
+  <!-- Budgets content -->
+  <div class="budgets-content" [class.loading]="isLoading">
+    <div class="page-header">
+      <h1 class="page-title">Budgets</h1>
+      <button class="btn btn-primary add-budget-btn" (click)="openAddBudgetModal()">
+        <span class="btn-icon">+</span>
+        <span class="btn-text">Add Budget</span>
+      </button>
+    </div>
+
+    <!-- Budgets overview -->
+    <div class="budgets-overview">
+      <ng-container *ngIf="(budgetsWithProgress$ | async) as budgets">
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="budgets.length === 0">
+          <div class="card">
+            <div class="card-content">
+              <h2>No Budgets Yet</h2>
+              <p>Start managing your finances by creating a budget for your spending categories.</p>
+              <button class="btn btn-primary" (click)="openAddBudgetModal()">Create Your First Budget</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget cards -->
+        <div class="budget-cards" *ngIf="budgets.length > 0">
+          <div class="card budget-card" *ngFor="let budget of budgets">
+            <div class="card-content">
+              <!-- Budget header -->
+              <div class="budget-header">
+                <div class="category-info">
+                  <span class="category-icon" [style.backgroundColor]="budget.category.color + '33'">
+                    {{ budget.category.icon || '💰' }}
+                  </span>
+                  <div class="category-details">
+                    <h3 class="category-name">{{ budget.category.name }}</h3>
+                    <p class="budget-period">{{ formatPeriod(budget.period) }} Budget</p>
+                  </div>
+                </div>
+
+                <div class="budget-actions">
+                  <button class="action-btn edit-btn" title="Edit Budget" (click)="openEditBudgetModal(budget)">✏️</button>
+                  <button class="action-btn delete-btn" title="Delete Budget" (click)="deleteBudget(budget.id)">🗑️</button>
+                </div>
+              </div>
+
+              <!-- Budget amount -->
+              <div class="budget-amounts">
+                <div class="amount-item">
+                  <span class="amount-label">Budget</span>
+                  <span class="amount-value">{{ budget.amount | currency }}</span>
+                </div>
+
+                <div class="amount-item">
+                  <span class="amount-label">Spent</span>
+                  <span class="amount-value" [class.exceeded]="budget.percentUsed >= 100">
+                    {{ budget.currentSpent | currency }}
+                  </span>
+                </div>
+
+                <div class="amount-item">
+                  <span class="amount-label">Remaining</span>
+                  <span class="amount-value" [class.negative]="budget.remaining < 0">
+                    {{ budget.remaining | currency }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                  <div class="progress-bar"
+                       [style.width.%]="budget.percentUsed > 100 ? 100 : budget.percentUsed"
+                       [ngClass]="getBudgetStatusClass(budget.percentUsed)">
+                  </div>
+                </div>
+                <div class="progress-label" [ngClass]="getBudgetStatusClass(budget.percentUsed)">
+                  {{ budget.percentUsed }}% Used
+                </div>
+              </div>
+
+              <!-- Budget dates -->
+              <div class="budget-dates">
+                <div class="date-item">
+                  <span class="date-label">Start Date</span>
+                  <span class="date-value">{{ budget.startDate | date:'MMM d, y' }}</span>
+                </div>
+
+                <div class="date-item" *ngIf="budget.endDate">
+                  <span class="date-label">End Date</span>
+                  <span class="date-value">{{ budget.endDate | date:'MMM d, y' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- Add/Edit Budget Modal (placeholder) -->
+  <div class="modal-overlay" *ngIf="showAddBudgetModal" (click)="closeBudgetModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ selectedBudgetForEdit ? 'Edit Budget' : 'Add New Budget' }}</h2>
+        <button class="close-btn" (click)="closeBudgetModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Budget form will go here -->
+        <p>Budget form placeholder</p>
+
+        <div class="form-group">
+          <label>Category</label>
+          <select class="form-control">
+            <option value="">Select a category</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="number" class="form-control" placeholder="0.00">
+        </div>
+
+        <div class="form-group">
+          <label>Period</label>
+          <select class="form-control">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>End Date (Optional)</label>
+          <input type="date" class="form-control">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeBudgetModal()">Cancel</button>
+        <button class="btn btn-primary">
+          {{ selectedBudgetForEdit ? 'Update Budget' : 'Create Budget' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
