@@ -47,7 +47,7 @@
                 },
                 {
                   "type": "inlineStyle",
-                  "maximunWarning": "10kB",
+                  "maximumWarning": "10kB",
                   "maximumError": "12kB"
                 },
                 {
